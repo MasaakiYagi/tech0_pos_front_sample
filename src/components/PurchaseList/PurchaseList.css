@@ -1,0 +1,11 @@
+ul {
+    height: 300px;   /* 高さを300pxに固定 */
+    overflow-y: auto; /* 縦方向に内容があふれた場合にスクロールバーを表示 */
+    list-style: none; /* リストマーカーを非表示に */
+    padding: 0;       /* デフォルトのパディングを削除 */
+    background-color: rgba(240, 255, 255, 0.219);
+    margin: 10px auto;
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
+  }

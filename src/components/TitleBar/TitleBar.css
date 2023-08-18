@@ -1,0 +1,44 @@
+.TitleBar-Back {
+    padding: 10px;
+    margin: 10px;
+    width: 95vw;
+    border-radius: 25px;
+    color: #FFF;
+    position: relative;
+    overflow: hidden;
+    display: flex;              /* flexboxを有効にする */
+    justify-content: center;    /* 水平方向の中央揃え */
+    align-items: center;        /* 垂直方向の中央揃え */
+}
+
+.TitleBar-Back::before,
+.TitleBar-Back::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    border: 2px solid;
+    border-color: #ff00f6;
+    border-radius: 22px;
+    z-index: -1;
+}
+
+.TitleBar-Back::after {
+    filter: blur(10px);
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+}
+
+.TitleBar-Back h1 {
+    font-size: 32px;
+}
+
+@media (max-width: 600px) {
+    .TitleBar-Back h1 {
+        font-size: 24px;
+    }
+}

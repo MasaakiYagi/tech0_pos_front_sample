@@ -36,3 +36,36 @@
     transform: rotate(360deg);
   }
 }
+
+.full-container {
+  display: flex;
+  align-items: center;    /* 縦方向の中央揃え */
+  justify-content: center; /* 横方向の中央揃え */
+  flex-direction: column;  /* 子要素を縦方向にスタックする */
+}
+
+.content-body {
+  width: 95vw;
+  max-width: 500px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.osha-button {
+  width: 100%;
+  font-size: large;
+  padding: 5px 0;
+}
+
+.triangle-down {
+  margin: 10px auto;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;   /* 左側の三角 */
+  border-right: 20px solid transparent;  /* 右側の三角 */
+  border-top: 40px solid #ff00f6;           /* 上側の三角 */
+}
+
+.text-purchase {
+  color: white;
+}

@@ -3,9 +3,15 @@ import "./App.css";
 import BarcodeReader from "./components/BarcodeReader/BarcodeReader";
 import ProductDisplay from "./components/ProductDisplay/ProductDisplay";
 import PurchaseList from "./components/PurchaseList/PurchaseList";
+import TitleBar from "./components/TitleBar/TitleBar";
 
 const App = () => {
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState({
+    PRD_ID: 1,
+    PRD_CD: 4514603263213,
+    PRD_NAME: "三ツ矢サイダー PET500ml",
+    PRD_PRICE: 160,
+  });
   const [items, setItems] = useState([]);
   const [showScanner, setShowScanner] = useState(false); // バーコードリーダーを表示するかどうかの状態
 
@@ -42,6 +48,7 @@ const App = () => {
     }
 
     setItems([...items, product]);
+    setProduct({});
   };
 
   const handlePurchase = async () => {
@@ -58,29 +65,55 @@ const App = () => {
     };
 
     try {
-      await fetch(process.env.REACT_APP_API_URL + "/purchase/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(purchaseData),
-      });
+      const response = await fetch(
+        process.env.REACT_APP_API_URL + "/purchase/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(purchaseData),
+        }
+      );
+
+      const responseData = await response.json();
+
+      // APIから帰ってきたメッセージをポップアップで表示
+      if (responseData.message) {
+        alert(JSON.stringify(responseData.message, null, 2));
+      }
+
+      setItems([]); // itemsを空にします
     } catch (error) {
       console.error("Error making a purchase:", error);
     }
   };
 
   return (
-    <div>
+    <div className="full-container">
       {showScanner ? ( // showScannerの状態に応じてバーコードリーダーを表示する
         <BarcodeReader onScan={handleScan} />
       ) : (
         <>
-          <button onClick={() => setShowScanner(true)}>スキャン</button>
-          <ProductDisplay product={product} />
-          <button onClick={handleAdd}>追加</button>
-          <PurchaseList items={items} />
-          <button onClick={handlePurchase}>購入</button>
+          <TitleBar></TitleBar>
+          <div className="content-body">
+            <button
+              className="osha-button"
+              onClick={() => setShowScanner(true)}
+            >
+              スキャン
+            </button>
+            <ProductDisplay product={product} />
+            <button className="osha-button" onClick={handleAdd}>
+              追加
+            </button>
+            <div class="triangle-down"></div>
+            <div class="text-purchase">購入リスト</div>
+            <PurchaseList items={items} />
+            <button className="osha-button" onClick={handlePurchase}>
+              購入
+            </button>
+          </div>
         </>
       )}
     </div>
