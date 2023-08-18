@@ -30,7 +30,7 @@ const BarcodeReader = ({ onScan }) => {
         },
         numOfWorkers: 4,
         decoder: {
-          readers: ["code_128_reader"], // ここで読み取るバーコードのタイプを指定
+          readers: ["ean_reader"], // ここで読み取るバーコードのタイプを指定
         },
         locate: true,
       },

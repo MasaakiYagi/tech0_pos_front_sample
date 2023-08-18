@@ -6,12 +6,7 @@ import PurchaseList from "./components/PurchaseList/PurchaseList";
 import TitleBar from "./components/TitleBar/TitleBar";
 
 const App = () => {
-  const [product, setProduct] = useState({
-    PRD_ID: 1,
-    PRD_CD: 4514603263213,
-    PRD_NAME: "三ツ矢サイダー PET500ml",
-    PRD_PRICE: 160,
-  });
+  const [product, setProduct] = useState({});
   const [items, setItems] = useState([]);
   const [showScanner, setShowScanner] = useState(false); // バーコードリーダーを表示するかどうかの状態
 
