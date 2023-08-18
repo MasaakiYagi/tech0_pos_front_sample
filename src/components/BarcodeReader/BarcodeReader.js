@@ -4,7 +4,8 @@ import "./BarcodeReader.css";
 
 const BarcodeReader = ({ onScan }) => {
   const [error, setError] = useState(null);
-  const scannerRef = useRef(null); // リファレンスを追加
+  const [lastScans, setLastScans] = useState([]); // 最後の3回のスキャン結果を追跡するための状態
+  const scannerRef = useRef(null);
 
   useEffect(() => {
     Quagga.init(
@@ -46,7 +47,17 @@ const BarcodeReader = ({ onScan }) => {
 
     Quagga.onDetected((data) => {
       if (data && data.codeResult) {
-        onScan(data.codeResult.code);
+        const newCode = data.codeResult.code;
+        const updatedScans = [...lastScans, newCode].slice(-3); // 最新の3つの結果だけを保持する
+        setLastScans(updatedScans);
+
+        // 3回同じバーコードがスキャンされた場合、onScan関数を呼び出す
+        if (
+          updatedScans.length === 3 &&
+          updatedScans.every((code) => code === newCode)
+        ) {
+          onScan(newCode);
+        }
       }
     });
 
@@ -54,7 +65,7 @@ const BarcodeReader = ({ onScan }) => {
       Quagga.offDetected();
       Quagga.stop();
     };
-  }, [onScan]);
+  }, [onScan, lastScans]);
 
   return (
     <div>
