@@ -7,8 +7,15 @@ import TitleBar from "./components/TitleBar/TitleBar";
 
 const App = () => {
   const [product, setProduct] = useState({});
+  // const [product, setProduct] = useState({
+  //   PRD_ID: 0,
+  //   PRD_CD: "aaaa",
+  //   PRD_NAME: "aaaa",
+  //   PRD_PRICE: 500,
+  // });
   const [items, setItems] = useState([]);
   const [showScanner, setShowScanner] = useState(false); // バーコードリーダーを表示するかどうかの状態
+  const [animateTriangle, setAnimateTriangle] = useState(false);
 
   const handleScan = async (code) => {
     setShowScanner(false); // スキャンが完了したらバーコードリーダーを非表示にする
@@ -41,6 +48,12 @@ const App = () => {
       alert("スキャン商品が不正です");
       return;
     }
+
+    setAnimateTriangle(true); // アニメーションを開始
+
+    setTimeout(() => {
+      setAnimateTriangle(false); // アニメーションをリセット
+    }, 200); // CSSアニメーションの持続時間
 
     setItems([...items, product]);
     setProduct({});
@@ -102,7 +115,9 @@ const App = () => {
             <button className="osha-button" onClick={handleAdd}>
               追加
             </button>
-            <div class="triangle-down"></div>
+            <div
+              className={`triangle-down ${animateTriangle ? "animate" : ""}`}
+            ></div>
             <div class="text-purchase">購入リスト</div>
             <PurchaseList items={items} />
             <button className="osha-button" onClick={handlePurchase}>

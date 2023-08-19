@@ -55,6 +55,12 @@
   width: 100%;
   font-size: large;
   padding: 5px 0;
+  transition: transform .2s;
+  border-radius: 10px;
+}
+
+.osha-button:active {
+  transform: scale(.95);
 }
 
 .triangle-down {
@@ -64,8 +70,22 @@
   border-left: 20px solid transparent;   /* 左側の三角 */
   border-right: 20px solid transparent;  /* 右側の三角 */
   border-top: 40px solid #ff00f6;           /* 上側の三角 */
+  transition: .5s;
 }
 
 .text-purchase {
   color: white;
+}
+
+@keyframes rollDown {
+  0% {
+      transform: translateY(0);
+  }
+  100% {
+      transform: translateY(10px);
+  }
+}
+
+.triangle-down.animate {
+  animation: rollDown 0.2s forwards;
 }
