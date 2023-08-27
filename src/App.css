@@ -50,6 +50,19 @@
   padding: 10px;
   margin: 10px;
 }
+.horizontal-container {
+  display: flex;
+  align-items: center; /* もし中のアイテムを垂直方向中央に配置したい場合 */
+  gap: 10px; /* 各アイテムの間隔 */
+}
+
+.whitetext{
+  color: white;
+}
+
+.input_area{
+  padding: 5px 0;
+}
 
 .osha-button {
   width: 100%;

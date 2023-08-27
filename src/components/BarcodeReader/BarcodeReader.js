@@ -13,6 +13,8 @@ const BarcodeReader = ({ onScan }) => {
         inputStream: {
           type: "LiveStream",
           constraints: {
+            deviceId:
+              "88bae1f64668944eb8b4728b38e25248f09c4bcf94c6ed96dad7863231e75f15",
             width: 640,
             height: 480,
             facingMode: "environment", // 使用するカメラを背面カメラに設定

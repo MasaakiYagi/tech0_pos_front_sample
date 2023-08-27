@@ -16,6 +16,7 @@ const App = () => {
   const [items, setItems] = useState([]);
   const [showScanner, setShowScanner] = useState(false); // バーコードリーダーを表示するかどうかの状態
   const [animateTriangle, setAnimateTriangle] = useState(false);
+  const [searchCode, setSearchCode] = useState("");
 
   const handleScan = async (code) => {
     setShowScanner(false); // スキャンが完了したらバーコードリーダーを非表示にする
@@ -41,6 +42,14 @@ const App = () => {
       console.error("Error fetching product:", error);
       setProduct({});
     }
+  };
+
+  const handleSearch = () => {
+    if (!searchCode) {
+      alert("コードが入力されていません");
+      return;
+    }
+    handleScan(searchCode);
   };
 
   const handleAdd = () => {
@@ -105,12 +114,26 @@ const App = () => {
         <>
           <TitleBar></TitleBar>
           <div className="content-body">
-            <button
-              className="osha-button"
-              onClick={() => setShowScanner(true)}
-            >
-              スキャン
-            </button>
+            <div className="horizontal-container">
+              <button
+                className="osha-button"
+                onClick={() => setShowScanner(true)}
+              >
+                スキャン
+              </button>
+              <p className="whitetext">OR</p>
+
+              <input
+                type="text"
+                value={searchCode}
+                className="input_area"
+                onChange={(e) => setSearchCode(e.target.value)}
+                placeholder="コードを入力"
+              />
+              <button className="osha-button" onClick={handleSearch}>
+                検索
+              </button>
+            </div>
             <ProductDisplay product={product} />
             <button className="osha-button" onClick={handleAdd}>
               追加
@@ -118,7 +141,7 @@ const App = () => {
             <div
               className={`triangle-down ${animateTriangle ? "animate" : ""}`}
             ></div>
-            <div class="text-purchase">購入リスト</div>
+            <div className="text-purchase">購入リスト</div>
             <PurchaseList items={items} />
             <button className="osha-button" onClick={handlePurchase}>
               購入
